@@ -18,7 +18,7 @@ export const fetchUser = createAsyncThunk('user/fetchUser', async () =>
   getUserApi()
 );
 export const updateUser = createAsyncThunk(
-  'update/updateUser',
+  'user/updateUser',
   async (data: Partial<TUser>) => updateUserApi(data)
 );
 
