@@ -1,5 +1,4 @@
 import {
-  getUserApi,
   registerUserApi,
   loginUserApi,
   TLoginData,
@@ -60,9 +59,6 @@ const saveAuthData = (refreshToken: string, accessToken: string) => {
   setCookie('accessToken', accessToken);
 };
 
-export const fetchUser = createAsyncThunk('auth/fetchUser', async () =>
-  getUserApi()
-);
 export const login = createAsyncThunk('auth/login', async (data: TLoginData) =>
   loginUserApi(data)
 );
@@ -104,10 +100,6 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchUser.fulfilled, (state, action) => {
-        state.isAuthenticated = true;
-        state.user = action.payload.user;
-      })
       .addCase(login.pending, (state) => {
         state.loading = true;
         state.errors.login = null;
@@ -142,18 +134,19 @@ const authSlice = createSlice({
         state.loading = false;
       })
       .addCase(forgotPassword.rejected, (state) => {
-        (state.loading = false),
-          (state.errors.forgotPassword = 'Ошибка при восстановлении пароля');
+        state.loading = false;
+        state.errors.forgotPassword = 'Ошибка при восстановлении пароля';
       })
       .addCase(resetPassword.pending, (state) => {
-        (state.loading = true), (state.errors.resetPassword = null);
+        state.loading = true;
+        state.errors.resetPassword = null;
       })
       .addCase(resetPassword.fulfilled, (state) => {
         state.loading = false;
       })
       .addCase(resetPassword.rejected, (state) => {
-        (state.loading = false),
-          (state.errors.resetPassword = 'Ошибка сброса пароля');
+        state.loading = false;
+        state.errors.resetPassword = 'Ошибка сброса пароля';
       })
       .addCase(logout.pending, (state) => {
         state.loading = true;
