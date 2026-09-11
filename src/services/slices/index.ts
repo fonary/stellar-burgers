@@ -4,12 +4,13 @@ import userSlice from './userSlice';
 import ordersSlice from './orderSlice';
 import constructorSlice from './constructorSlice';
 import ingredientsSlice from './ingredientsSlice';
+import feedSlice from './feedSlice';
 
 export const rootReducer = combineReducers({
   auth: authSlice,
   user: userSlice,
   orders: ordersSlice,
   constructor: constructorSlice,
-  ingredients: ingredientsSlice
-  // feed: feedSlice
+  ingredients: ingredientsSlice,
+  feed: feedSlice
 });

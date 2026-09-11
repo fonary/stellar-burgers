@@ -3,13 +3,13 @@ import { TIngredient } from '@utils-types';
 import { getIngredientsApi } from '../../utils/burger-api';
 
 interface IngredientsState {
-  ingredients: TIngredient[];
+  data: TIngredient[];
   loading: boolean;
   error: string | null;
 }
 
 const initialState: IngredientsState = {
-  ingredients: [],
+  data: [],
   loading: false,
   error: null
 };
@@ -19,7 +19,7 @@ export const fetchIngredients = createAsyncThunk(
   async () => getIngredientsApi()
 );
 
-const ingredientSlice = createSlice({
+const ingredientsSlice = createSlice({
   name: 'ingredients',
   initialState,
   reducers: {},
@@ -33,7 +33,7 @@ const ingredientSlice = createSlice({
         fetchIngredients.fulfilled,
         (state, action: PayloadAction<TIngredient[]>) => {
           state.loading = false;
-          state.ingredients = [...action.payload];
+          state.data = action.payload;
         }
       )
       .addCase(fetchIngredients.rejected, (state) => {
@@ -43,4 +43,4 @@ const ingredientSlice = createSlice({
   }
 });
 
-export default ingredientSlice.reducer;
+export default ingredientsSlice.reducer;
