@@ -30,6 +30,11 @@ const userSlice = createSlice({
       state.error = null;
     }
   },
+  selectors: {
+    userData: (state) => state.data,
+    userLoading: (state) => state.loading,
+    useError: (state) => state.error
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchUser.pending, (state) => {
@@ -60,4 +65,5 @@ const userSlice = createSlice({
 });
 
 export const { clearUserError } = userSlice.actions;
+export const { userData, userLoading, useError } = userSlice.selectors;
 export default userSlice.reducer;
