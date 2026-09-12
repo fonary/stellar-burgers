@@ -98,6 +98,9 @@ const authSlice = createSlice({
       state.registerForm = defaultRegisterFormData;
     }
   },
+  selectors: {
+    authIsAuthenticated: (state) => state.isAuthenticated
+  },
   extraReducers: (builder) => {
     builder
       .addCase(login.pending, (state) => {
@@ -166,4 +169,5 @@ const authSlice = createSlice({
 
 export const { setLoginForm, setRegisterForm, clearErrors, logoutUser } =
   authSlice.actions;
+export const { authIsAuthenticated } = authSlice.selectors;
 export default authSlice.reducer;
