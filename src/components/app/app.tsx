@@ -14,12 +14,20 @@ import styles from './app.module.css';
 
 import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
 import { ProtectedRoute } from '../protected-route';
+import {
+  fetchIngredients,
+  ingredientsLoading
+} from '../../services/slices/ingredientsSlice';
+import { useDispatch, useSelector } from '../../services/store';
+import { useEffect } from 'react';
 
 const App = () => {
-  /** TODO: взять переменные из стора */
-  const isIngredientsLoading = false;
-  const ingredients = [];
-  const error = null;
+  const isIngredientsLoading = useSelector(ingredientsLoading);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchIngredients());
+  }, []);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -34,9 +42,13 @@ const App = () => {
       <AppHeader />
 
       <Routes location={background ?? location}>
-        <Route path='/' element={<ConstructorPage />} />
+        <Route
+          path='/'
+          element={
+            <ConstructorPage isIngredientsLoading={isIngredientsLoading} />
+          }
+        />
         <Route path='/feed' element={<Feed />} />
-
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
         <Route path='/forgot-password' element={<ForgotPassword />} />
