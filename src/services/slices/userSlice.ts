@@ -14,14 +14,14 @@ import {
 } from '@api';
 import { ResetPassword } from '@pages';
 
-export type AuthState = {
+export type UserState = {
   user: TUser | null;
   isAuthenticated: boolean;
   isLoading: boolean;
   error: string | null;
 };
 
-const initialState: AuthState = {
+const initialState: UserState = {
   user: null,
   isAuthenticated: false,
   isLoading: false,
