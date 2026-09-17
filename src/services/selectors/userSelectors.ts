@@ -19,7 +19,7 @@ export const selectUserLoading = createSelector(
   (userState: UserState) => userState.isLoading
 );
 
-export const selectError = createSelector(
+export const selectUserError = createSelector(
   [selectUserState],
   (userState: UserState) => userState.error
 );
