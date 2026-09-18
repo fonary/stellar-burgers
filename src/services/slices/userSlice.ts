@@ -168,6 +168,7 @@ const userSlice = createSlice({
       })
       .addCase(forgotPassword.fulfilled, (state) => {
         state.isLoading = false;
+        localStorage.setItem('resetPassword', 'sent');
       })
       .addCase(forgotPassword.rejected, (state) => {
         state.isLoading = false;
@@ -176,6 +177,7 @@ const userSlice = createSlice({
       .addCase(resetPassword.pending, (state) => {
         state.isLoading = true;
         state.errors.resetPassword = null;
+        localStorage.setItem('resetPassword', 'reset');
       })
       .addCase(resetPassword.fulfilled, (state) => {
         state.isLoading = false;
