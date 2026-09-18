@@ -23,3 +23,8 @@ export const selectUserError = createSelector(
   [selectUserState],
   (userState: UserState) => userState.errors
 );
+
+export const selectIsAuthChecked = createSelector(
+  [selectUserState],
+  (userState: UserState) => userState.isAuthChecked
+);

@@ -2,5 +2,6 @@ export {
   selectUser,
   selectIsAuth,
   selectUserLoading,
-  selectUserError
+  selectUserError,
+  selectIsAuthChecked
 } from './userSelectors';

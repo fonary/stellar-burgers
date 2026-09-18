@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { TUser } from '@utils-types';
-import { setCookie, deleteCookie } from '../../utils/cookie';
+import { setCookie, deleteCookie, getCookie } from '../../utils/cookie';
 import {
   registerUserApi,
   loginUserApi,
@@ -27,6 +27,7 @@ export type UserState = {
   user: TUser | null;
   isAuthenticated: boolean;
   isLoading: boolean;
+  isAuthChecked: boolean;
   errors: ErrorsUser;
 };
 
@@ -34,6 +35,7 @@ const initialState: UserState = {
   user: null,
   isAuthenticated: false,
   isLoading: false,
+  isAuthChecked: false,
   errors: {
     login: null,
     register: null,
@@ -84,6 +86,19 @@ export const updateUser = createAsyncThunk(
 );
 
 export const logout = createAsyncThunk('user/logout', async () => logoutApi());
+
+export const checkAuth = createAsyncThunk('user/checkAuth', async () => {
+  const accessToken = getCookie('accessToken');
+  if (accessToken) {
+    try {
+      const response = await getUserApi();
+      return response.user;
+    } catch {
+      deleteToken();
+    }
+  }
+  return null;
+});
 
 const userSlice = createSlice({
   name: 'user',
@@ -185,6 +200,16 @@ const userSlice = createSlice({
       .addCase(resetPassword.rejected, (state) => {
         state.isLoading = false;
         state.errors.resetPassword = 'Ошибка сброса пароля';
+      })
+      .addCase(checkAuth.fulfilled, (state, action) => {
+        state.isAuthChecked = true;
+        if (action.payload) {
+          state.user = action.payload;
+          state.isAuthenticated = true;
+        }
+      })
+      .addCase(checkAuth.rejected, (state) => {
+        state.isAuthChecked = true;
       });
   }
 });

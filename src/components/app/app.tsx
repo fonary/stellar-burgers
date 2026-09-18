@@ -20,8 +20,21 @@ import {
   OrderInfo
 } from '@components';
 import { ProtectedRoute } from '../protected-route';
+import { useDispatch, useSelector } from '../../services/store';
+import { useEffect } from 'react';
+import { checkAuth } from '@slices';
+import { selectIsAuthChecked } from '@selectors';
 
 const App = () => {
+  const dispatch = useDispatch();
+  const isAuthChecked = useSelector(selectIsAuthChecked);
+
+  useEffect(() => {
+    if (!isAuthChecked) {
+      dispatch(checkAuth());
+    }
+  }, [isAuthChecked, dispatch]);
+
   const location = useLocation();
   const background = location.state?.background;
   const navigate = useNavigate();
@@ -40,7 +53,7 @@ const App = () => {
         <Route
           path='/login'
           element={
-            <ProtectedRoute>
+            <ProtectedRoute onlyUnAuth>
               <Login />
             </ProtectedRoute>
           }
@@ -48,7 +61,7 @@ const App = () => {
         <Route
           path='/register'
           element={
-            <ProtectedRoute>
+            <ProtectedRoute onlyUnAuth>
               <Register />
             </ProtectedRoute>
           }
@@ -56,7 +69,7 @@ const App = () => {
         <Route
           path='/forgot-password'
           element={
-            <ProtectedRoute>
+            <ProtectedRoute onlyUnAuth>
               <ForgotPassword />
             </ProtectedRoute>
           }
@@ -64,7 +77,7 @@ const App = () => {
         <Route
           path='/reset-password'
           element={
-            <ProtectedRoute>
+            <ProtectedRoute onlyUnAuth>
               <ResetPassword />
             </ProtectedRoute>
           }
@@ -85,6 +98,7 @@ const App = () => {
             </ProtectedRoute>
           }
         />
+        <Route path='*' element={<NotFound404 />} />
       </Routes>
 
       {background && (

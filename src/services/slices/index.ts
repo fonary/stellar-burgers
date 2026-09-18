@@ -6,5 +6,6 @@ export {
   forgotPassword,
   resetPassword,
   getUser,
-  updateUser
+  updateUser,
+  checkAuth
 } from './userSlice';
