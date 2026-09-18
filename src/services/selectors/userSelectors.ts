@@ -21,5 +21,5 @@ export const selectUserLoading = createSelector(
 
 export const selectUserError = createSelector(
   [selectUserState],
-  (userState: UserState) => userState.error
+  (userState: UserState) => userState.errors
 );

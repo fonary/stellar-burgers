@@ -14,7 +14,7 @@ export const Register: FC = () => {
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const errorText = useSelector(selectUserError);
+  const errorText = useSelector(selectUserError).register;
   const isAuth = useSelector(selectIsAuth);
 
   useEffect(() => {

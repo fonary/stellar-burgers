@@ -13,7 +13,7 @@ export const Login: FC = () => {
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const errorText = useSelector(selectUserError);
+  const errorText = useSelector(selectUserError).login;
   const isAuth = useSelector(selectIsAuth);
 
   useEffect(() => {

@@ -1,6 +1,6 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { TUser } from '@utils-types';
-import { setCookie, getCookie, deleteCookie } from '../../utils/cookie';
+import { setCookie, deleteCookie } from '../../utils/cookie';
 import {
   registerUserApi,
   loginUserApi,
@@ -12,20 +12,37 @@ import {
   getUserApi,
   updateUserApi
 } from '@api';
-import { ResetPassword } from '@pages';
+
+type ErrorsUser = {
+  login: string | null;
+  register: string | null;
+  forgotPassword: string | null;
+  resetPassword: string | null;
+  getUser: string | null;
+  updateUser: string | null;
+  logout: string | null;
+};
 
 export type UserState = {
   user: TUser | null;
   isAuthenticated: boolean;
   isLoading: boolean;
-  error: string | null;
+  errors: ErrorsUser;
 };
 
 const initialState: UserState = {
   user: null,
   isAuthenticated: false,
   isLoading: false,
-  error: null
+  errors: {
+    login: null,
+    register: null,
+    forgotPassword: null,
+    resetPassword: null,
+    getUser: null,
+    updateUser: null,
+    logout: null
+  }
 };
 
 const saveToken = (refreshToken: string, accessToken: string) => {
@@ -76,7 +93,7 @@ const userSlice = createSlice({
     builder
       .addCase(register.pending, (state) => {
         state.isLoading = true;
-        state.error = null;
+        state.errors.register = null;
       })
       .addCase(register.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -86,11 +103,11 @@ const userSlice = createSlice({
       })
       .addCase(register.rejected, (state) => {
         state.isLoading = false;
-        state.error = 'Регистрация не удалась';
+        state.errors.register = 'Регистрация не удалась';
       })
       .addCase(login.pending, (state) => {
         state.isLoading = true;
-        state.error = null;
+        state.errors.login = null;
       })
       .addCase(login.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -100,27 +117,29 @@ const userSlice = createSlice({
       })
       .addCase(login.rejected, (state) => {
         state.isLoading = false;
-        state.error = 'Неверный логин или пароль';
+        state.errors.login = 'Неверный логин или пароль';
       })
       .addCase(logout.pending, (state) => {
         state.isLoading = true;
+        state.errors.logout = null;
       })
       .addCase(logout.fulfilled, (state) => {
         state.isLoading = false;
         state.user = null;
         state.isAuthenticated = false;
-        state.error = null;
+        state.errors.logout = null;
         deleteToken();
       })
       .addCase(logout.rejected, (state) => {
         state.isLoading = false;
         state.user = null;
         state.isAuthenticated = false;
-        state.error = 'Ошибка выхода';
+        state.errors.logout = 'Ошибка выхода';
         deleteToken();
       })
       .addCase(getUser.pending, (state) => {
         state.isLoading = true;
+        state.errors.getUser = null;
       })
       .addCase(getUser.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -129,10 +148,11 @@ const userSlice = createSlice({
       })
       .addCase(getUser.rejected, (state) => {
         state.isLoading = false;
-        state.error = 'Ошибка получения данных пользователя';
+        state.errors.getUser = 'Ошибка получения данных пользователя';
       })
       .addCase(updateUser.pending, (state) => {
         state.isLoading = true;
+        state.errors.updateUser = null;
       })
       .addCase(updateUser.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -140,27 +160,29 @@ const userSlice = createSlice({
       })
       .addCase(updateUser.rejected, (state) => {
         state.isLoading = false;
-        state.error = 'Ошибка обновления профиля';
+        state.errors.updateUser = 'Ошибка обновления профиля';
       })
       .addCase(forgotPassword.pending, (state) => {
         state.isLoading = true;
+        state.errors.forgotPassword = null;
       })
       .addCase(forgotPassword.fulfilled, (state) => {
         state.isLoading = false;
       })
       .addCase(forgotPassword.rejected, (state) => {
         state.isLoading = false;
-        state.error = 'Ошибка отправки письма';
+        state.errors.forgotPassword = 'Ошибка отправки письма';
       })
       .addCase(resetPassword.pending, (state) => {
         state.isLoading = true;
+        state.errors.resetPassword = null;
       })
       .addCase(resetPassword.fulfilled, (state) => {
         state.isLoading = false;
       })
       .addCase(resetPassword.rejected, (state) => {
         state.isLoading = false;
-        state.error = 'Ошибка сброса пароля';
+        state.errors.resetPassword = 'Ошибка сброса пароля';
       });
   }
 });
