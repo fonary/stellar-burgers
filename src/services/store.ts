@@ -5,10 +5,11 @@ import {
   useDispatch as dispatchHook,
   useSelector as selectorHook
 } from 'react-redux';
-import { userReducer } from './slices/userSlice';
+import { ingredientsReducer, userReducer } from '@slices';
 
 const rootReducer = {
-  user: userReducer
+  user: userReducer,
+  ingredients: ingredientsReducer
 };
 
 const store = configureStore({

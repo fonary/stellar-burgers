@@ -9,3 +9,5 @@ export {
   updateUser,
   checkAuth
 } from './userSlice';
+
+export { ingredientsReducer } from './ingredientsSlice';
