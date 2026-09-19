@@ -10,4 +10,4 @@ export {
   checkAuth
 } from './userSlice';
 
-export { ingredientsReducer } from './ingredientsSlice';
+export { ingredientsReducer, fetchIngredients } from './ingredientsSlice';
