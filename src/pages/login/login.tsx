@@ -4,9 +4,11 @@ import { useDispatch, useSelector } from '../../services/store';
 import { useNavigate } from 'react-router-dom';
 import {
   selectUserError,
-  selectIsAuth
+  selectIsAuth,
+  selectUserLoading
 } from '../../services/selectors/userSelectors';
 import { login } from '../../services/slices/userSlice';
+import { Preloader } from '@ui';
 
 export const Login: FC = () => {
   const [email, setEmail] = useState('');
@@ -15,6 +17,7 @@ export const Login: FC = () => {
   const navigate = useNavigate();
   const errorText = useSelector(selectUserError).login;
   const isAuth = useSelector(selectIsAuth);
+  const isLoading = useSelector(selectUserLoading);
 
   useEffect(() => {
     if (isAuth) {
@@ -26,6 +29,10 @@ export const Login: FC = () => {
     e.preventDefault();
     dispatch(login({ email, password }));
   };
+
+  if (isLoading) {
+    return <Preloader />;
+  }
 
   return (
     <LoginUI

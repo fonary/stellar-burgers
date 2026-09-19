@@ -10,11 +10,15 @@ import { FC } from 'react';
 type ProtectedRouteProps = {
   children: React.ReactElement;
   onlyUnAuth?: boolean;
+  redirect?: string;
+  redirectOnLogout?: string;
 };
 
 export const ProtectedRoute: FC<ProtectedRouteProps> = ({
   children,
-  onlyUnAuth
+  onlyUnAuth,
+  redirect = '/login',
+  redirectOnLogout
 }: ProtectedRouteProps) => {
   const isAuth = useSelector(selectIsAuth);
   const isAuthChecked = useSelector(selectIsAuthChecked);
@@ -29,7 +33,10 @@ export const ProtectedRoute: FC<ProtectedRouteProps> = ({
   }
 
   if (!onlyUnAuth && !isAuth) {
-    return <Navigate to='/login' state={{ from: location }} />;
+    if (location.state?.logout && redirectOnLogout) {
+      return <Navigate to={redirectOnLogout} />;
+    }
+    return <Navigate to={redirect} state={{ from: location }} />;
   }
 
   return children;

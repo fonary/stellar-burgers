@@ -4,9 +4,11 @@ import { useDispatch, useSelector } from '../../services/store';
 import { useNavigate } from 'react-router-dom';
 import {
   selectUserError,
-  selectIsAuth
+  selectIsAuth,
+  selectUserLoading
 } from '../../services/selectors/userSelectors';
 import { register } from '../../services/slices/userSlice';
+import { Preloader } from '@ui';
 
 export const Register: FC = () => {
   const [userName, setUserName] = useState('');
@@ -16,6 +18,7 @@ export const Register: FC = () => {
   const navigate = useNavigate();
   const errorText = useSelector(selectUserError).register;
   const isAuth = useSelector(selectIsAuth);
+  const isLoading = useSelector(selectUserLoading);
 
   useEffect(() => {
     if (isAuth) {
@@ -27,6 +30,10 @@ export const Register: FC = () => {
     e.preventDefault();
     dispatch(register({ email, name: userName, password }));
   };
+
+  if (isLoading) {
+    return <Preloader />;
+  }
 
   return (
     <RegisterUI

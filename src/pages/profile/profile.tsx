@@ -1,13 +1,15 @@
-import { selectUser, selectUserError } from '@selectors';
-import { getUser, updateUser } from '@slices';
+import { selectUser, selectUserError, selectUserLoading } from '@selectors';
+import { updateUser } from '@slices';
 import { useDispatch, useSelector } from '../../services/store';
 import { ProfileUI } from '@ui-pages';
 import { FC, SyntheticEvent, useEffect, useState } from 'react';
+import { Preloader } from '@ui';
 
 export const Profile: FC = () => {
   const user = useSelector(selectUser);
   const updateUserError = useSelector(selectUserError).updateUser;
   const dispatch = useDispatch();
+  const isLoading = useSelector(selectUserLoading);
 
   const [formValue, setFormValue] = useState({
     name: '',
@@ -45,6 +47,10 @@ export const Profile: FC = () => {
       });
     }
   };
+
+  if (isLoading) {
+    return <Preloader />;
+  }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormValue((prevState) => ({
