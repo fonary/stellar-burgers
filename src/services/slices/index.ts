@@ -11,3 +11,5 @@ export {
 } from './userSlice';
 
 export { ingredientsReducer, fetchIngredients } from './ingredientsSlice';
+
+export { constructorReducer } from './constructorSlice';
