@@ -1,20 +1,18 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { TConstructorIngredient, TOrder } from '@utils-types';
+import { TConstructorIngredient } from '@utils-types';
 
 export type TConstructorState = {
   bunTop: TConstructorIngredient | null;
   bunBottom: TConstructorIngredient | null;
+  isLoading: boolean;
   ingredients: TConstructorIngredient[];
-  orderRequest: boolean;
-  orderModalData: TOrder | null;
 };
 
 const initialState: TConstructorState = {
   bunTop: null,
   bunBottom: null,
-  ingredients: [],
-  orderRequest: false,
-  orderModalData: null
+  isLoading: false,
+  ingredients: []
 };
 
 const constructorSlice = createSlice({
@@ -38,24 +36,11 @@ const constructorSlice = createSlice({
       state.bunTop = null;
       state.bunBottom = null;
       state.ingredients = [];
-      state.orderModalData = null;
-      state.orderRequest = false;
-    },
-    setOrderRequest: (state, action: PayloadAction<boolean>) => {
-      state.orderRequest = action.payload;
-    },
-    setOrderModalData: (state, action: PayloadAction<TOrder | null>) => {
-      state.orderModalData = action.payload;
     }
   }
 });
 
-export const {
-  addIngredient,
-  removeIngredients,
-  clearConstructor,
-  setOrderModalData,
-  setOrderRequest
-} = constructorSlice.actions;
+export const { addIngredient, removeIngredients, clearConstructor } =
+  constructorSlice.actions;
 
 export const constructorReducer = constructorSlice.reducer;

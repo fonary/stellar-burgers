@@ -16,7 +16,5 @@ export {
   constructorReducer,
   addIngredient,
   removeIngredients,
-  setOrderModalData,
-  setOrderRequest,
   clearConstructor
 } from './constructorSlice';

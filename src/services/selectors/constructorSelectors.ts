@@ -18,13 +18,3 @@ export const selectConstructorIngredients = createSelector(
   [selectConstructorState],
   (constructorState: TConstructorState) => constructorState.ingredients
 );
-
-export const selectOrderRequest = createSelector(
-  [selectConstructorState],
-  (constructorState: TConstructorState) => constructorState.orderRequest
-);
-
-export const selectOrderModalData = createSelector(
-  [selectConstructorState],
-  (constructorState: TConstructorState) => constructorState.orderModalData
-);

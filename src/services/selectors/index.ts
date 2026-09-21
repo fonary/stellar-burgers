@@ -15,7 +15,5 @@ export {
 export {
   selectBunTop,
   selectBunBottom,
-  selectConstructorIngredients,
-  selectOrderRequest,
-  selectOrderModalData
+  selectConstructorIngredients
 } from './constructorSelectors';
