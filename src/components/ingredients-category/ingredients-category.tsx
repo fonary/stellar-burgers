@@ -3,13 +3,13 @@ import { TIngredientsCategoryProps } from './type';
 import { TIngredient } from '@utils-types';
 import { IngredientsCategoryUI } from '../ui/ingredients-category';
 import { useSelector } from '../../services/store';
-import { selectBun } from '@selectors';
+import { selectBunTop } from '@selectors';
 
 export const IngredientsCategory = forwardRef<
   HTMLUListElement,
   TIngredientsCategoryProps
 >(({ title, titleRef, ingredients }, ref) => {
-  const bun = useSelector(selectBun);
+  const bun = useSelector(selectBunTop);
 
   const ingredientsCounters = useMemo(() => {
     const counters: { [key: string]: number } = {};

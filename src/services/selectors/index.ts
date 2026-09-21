@@ -13,7 +13,8 @@ export {
 } from './ingredientsSelectors';
 
 export {
-  selectBun,
+  selectBunTop,
+  selectBunBottom,
   selectConstructorIngredients,
   selectOrderRequest,
   selectOrderModalData

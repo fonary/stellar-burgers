@@ -2,50 +2,59 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TConstructorIngredient, TOrder } from '@utils-types';
 
 export type TConstructorState = {
-  bun: TConstructorIngredient | null;
+  bunTop: TConstructorIngredient | null;
+  bunBottom: TConstructorIngredient | null;
   ingredients: TConstructorIngredient[];
   orderRequest: boolean;
   orderModalData: TOrder | null;
 };
 
 const initialState: TConstructorState = {
-  bun: null,
+  bunTop: null,
+  bunBottom: null,
   ingredients: [],
   orderRequest: false,
   orderModalData: null
 };
 
 const constructorSlice = createSlice({
-  name: 'constructor',
+  name: 'burgerConstructor',
   initialState,
   reducers: {
-    addBun: (state, action: PayloadAction<TConstructorIngredient>) => {
-      state.bun = action.payload;
-    },
     addIngredient: (state, action: PayloadAction<TConstructorIngredient>) => {
-      state.ingredients.push(action.payload);
+      if (action.payload.type === 'bun') {
+        state.bunTop = action.payload;
+        state.bunBottom = action.payload;
+      } else {
+        state.ingredients.push(action.payload);
+      }
     },
-    removeIngredient: (state, action: PayloadAction<{ id: string }>) => {
+    removeIngredients: (state, action: PayloadAction<string>) => {
       state.ingredients = state.ingredients.filter(
-        (ingredient) => ingredient.id !== action.payload.id
+        (ingredient) => ingredient.id !== action.payload
       );
     },
     clearConstructor: (state) => {
-      state.bun = null;
+      state.bunTop = null;
+      state.bunBottom = null;
       state.ingredients = [];
       state.orderModalData = null;
+      state.orderRequest = false;
     },
     setOrderRequest: (state, action: PayloadAction<boolean>) => {
       state.orderRequest = action.payload;
+    },
+    setOrderModalData: (state, action: PayloadAction<TOrder | null>) => {
+      state.orderModalData = action.payload;
     }
   }
 });
 
 export const {
-  addBun,
   addIngredient,
-  removeIngredient,
+  removeIngredients,
   clearConstructor,
+  setOrderModalData,
   setOrderRequest
 } = constructorSlice.actions;
 

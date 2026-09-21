@@ -12,4 +12,11 @@ export {
 
 export { ingredientsReducer, fetchIngredients } from './ingredientsSlice';
 
-export { constructorReducer } from './constructorSlice';
+export {
+  constructorReducer,
+  addIngredient,
+  removeIngredients,
+  setOrderModalData,
+  setOrderRequest,
+  clearConstructor
+} from './constructorSlice';

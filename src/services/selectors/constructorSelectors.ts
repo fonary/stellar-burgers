@@ -4,9 +4,14 @@ import { TConstructorState } from '../slices/constructorSlice';
 
 const selectConstructorState = (state: RootState) => state.burgerConstructor;
 
-export const selectBun = createSelector(
+export const selectBunTop = createSelector(
   [selectConstructorState],
-  (constructorState: TConstructorState) => constructorState.bun
+  (constructorState: TConstructorState) => constructorState.bunTop
+);
+
+export const selectBunBottom = createSelector(
+  [selectConstructorState],
+  (constructorState: TConstructorState) => constructorState.bunBottom
 );
 
 export const selectConstructorIngredients = createSelector(
