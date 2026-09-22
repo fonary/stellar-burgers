@@ -16,6 +16,7 @@ export {
   constructorReducer,
   addIngredient,
   removeIngredients,
+  setIngredients,
   clearConstructor
 } from './constructorSlice';
 

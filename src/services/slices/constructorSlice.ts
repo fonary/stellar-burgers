@@ -32,6 +32,12 @@ const constructorSlice = createSlice({
         (ingredient) => ingredient.id !== action.payload
       );
     },
+    setIngredients: (
+      state,
+      action: PayloadAction<TConstructorIngredient[]>
+    ) => {
+      state.ingredients = action.payload;
+    },
     clearConstructor: (state) => {
       state.bunTop = null;
       state.bunBottom = null;
@@ -40,7 +46,11 @@ const constructorSlice = createSlice({
   }
 });
 
-export const { addIngredient, removeIngredients, clearConstructor } =
-  constructorSlice.actions;
+export const {
+  addIngredient,
+  removeIngredients,
+  clearConstructor,
+  setIngredients
+} = constructorSlice.actions;
 
 export const constructorReducer = constructorSlice.reducer;
