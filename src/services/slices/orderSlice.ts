@@ -25,7 +25,7 @@ const initialState: TOrderState = {
 
 export const fetchUserOrders = createAsyncThunk(
   'order/fetchUserOrders',
-  getOrdersApi
+  async () => getOrdersApi()
 );
 
 export const createOrder = createAsyncThunk<TCreateOrderPayload, string[]>(
