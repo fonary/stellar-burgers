@@ -1,20 +1,10 @@
-import { createSelector } from '@reduxjs/toolkit';
 import { RootState } from '../store';
-import { TConstructorState } from '../slices/constructorSlice';
 
-const selectConstructorState = (state: RootState) => state.burgerConstructor;
+export const selectBunTop = (state: RootState) =>
+  state.burgerConstructor.bunTop;
 
-export const selectBunTop = createSelector(
-  [selectConstructorState],
-  (constructorState: TConstructorState) => constructorState.bunTop
-);
+export const selectBunBottom = (state: RootState) =>
+  state.burgerConstructor.bunBottom;
 
-export const selectBunBottom = createSelector(
-  [selectConstructorState],
-  (constructorState: TConstructorState) => constructorState.bunBottom
-);
-
-export const selectConstructorIngredients = createSelector(
-  [selectConstructorState],
-  (constructorState: TConstructorState) => constructorState.ingredients
-);
+export const selectConstructorIngredients = (state: RootState) =>
+  state.burgerConstructor.ingredients;

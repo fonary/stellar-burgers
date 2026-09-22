@@ -1,30 +1,12 @@
-import { createSelector } from '@reduxjs/toolkit';
 import { RootState } from '../store';
-import { UserState } from '../slices/userSlice';
 
-const selectUserState = (state: RootState) => state.user;
+export const selectUser = (state: RootState) => state.user.user;
 
-export const selectUser = createSelector(
-  [selectUserState],
-  (userState: UserState) => userState.user
-);
+export const selectIsAuth = (state: RootState) => state.user.isAuthenticated;
 
-export const selectIsAuth = createSelector(
-  [selectUserState],
-  (userState: UserState) => userState.isAuthenticated
-);
+export const selectUserLoading = (state: RootState) => state.user.isLoading;
 
-export const selectUserLoading = createSelector(
-  [selectUserState],
-  (userState: UserState) => userState.isLoading
-);
+export const selectUserError = (state: RootState) => state.user.errors;
 
-export const selectUserError = createSelector(
-  [selectUserState],
-  (userState: UserState) => userState.errors
-);
-
-export const selectIsAuthChecked = createSelector(
-  [selectUserState],
-  (userState: UserState) => userState.isAuthChecked
-);
+export const selectIsAuthChecked = (state: RootState) =>
+  state.user.isAuthChecked;

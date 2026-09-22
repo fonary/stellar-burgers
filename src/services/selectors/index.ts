@@ -17,3 +17,10 @@ export {
   selectBunBottom,
   selectConstructorIngredients
 } from './constructorSelectors';
+
+export {
+  selectUserOrders,
+  selectOrderRequest,
+  selectOrderModalData,
+  selectOrderError
+} from './orderSelectors';

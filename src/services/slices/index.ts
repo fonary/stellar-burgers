@@ -18,3 +18,10 @@ export {
   removeIngredients,
   clearConstructor
 } from './constructorSlice';
+
+export {
+  orderReducer,
+  createOrder,
+  fetchUserOrders,
+  clearOrderModalData
+} from './orderSlice';
