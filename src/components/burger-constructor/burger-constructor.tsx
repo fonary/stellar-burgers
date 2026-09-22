@@ -2,16 +2,21 @@ import { FC, useMemo } from 'react';
 import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
 import { useSelector, useDispatch } from '../../services/store';
-import { selectBunTop, selectConstructorIngredients } from '@selectors';
-import { clearConstructor } from '@slices';
+import {
+  selectBunTop,
+  selectConstructorIngredients,
+  selectOrderModalData,
+  selectOrderRequest
+} from '@selectors';
+import { clearConstructor, clearOrderModalData, createOrder } from '@slices';
 import { selectIsAuth } from '@selectors';
 import { useNavigate } from 'react-router-dom';
 
 export const BurgerConstructor: FC = () => {
   const bun = useSelector(selectBunTop);
   const ingredients = useSelector(selectConstructorIngredients);
-  const orderRequest = false;
-  const orderModalData = null;
+  const orderRequest = useSelector(selectOrderRequest);
+  const orderModalData = useSelector(selectOrderModalData);
   const isAuth = useSelector(selectIsAuth);
 
   const dispatch = useDispatch();
@@ -35,10 +40,13 @@ export const BurgerConstructor: FC = () => {
       ...ingredients.map((ingredient) => ingredient._id),
       bun._id
     ];
+
+    dispatch(createOrder(ingredientsList));
   };
 
   const closeOrderModal = () => {
     dispatch(clearConstructor());
+    dispatch(clearOrderModalData());
   };
 
   const price = useMemo(
