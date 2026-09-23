@@ -24,3 +24,11 @@ export {
   selectOrderModalData,
   selectOrderError
 } from './orderSelectors';
+
+export {
+  selectFeedOrders,
+  selectFeedTotal,
+  selectFeedTotalToday,
+  selectFeedLoading,
+  selectFeedError
+} from './feedSelectors';
