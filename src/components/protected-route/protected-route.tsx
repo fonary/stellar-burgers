@@ -17,8 +17,7 @@ type ProtectedRouteProps = {
 export const ProtectedRoute: FC<ProtectedRouteProps> = ({
   children,
   onlyUnAuth,
-  redirect = '/login',
-  redirectOnLogout
+  redirect = '/login'
 }: ProtectedRouteProps) => {
   const isAuth = useSelector(selectIsAuth);
   const isAuthChecked = useSelector(selectIsAuthChecked);
@@ -33,9 +32,6 @@ export const ProtectedRoute: FC<ProtectedRouteProps> = ({
   }
 
   if (!onlyUnAuth && !isAuth) {
-    if (location.state?.logout && redirectOnLogout) {
-      return <Navigate to={redirectOnLogout} />;
-    }
     return <Navigate to={redirect} state={{ from: location }} />;
   }
 

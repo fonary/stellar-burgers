@@ -79,7 +79,7 @@ const App = () => {
         <Route
           path='/profile'
           element={
-            <ProtectedRoute redirectOnLogout='/'>
+            <ProtectedRoute>
               <Profile />
             </ProtectedRoute>
           }
