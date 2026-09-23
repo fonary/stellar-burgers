@@ -26,3 +26,5 @@ export {
   fetchUserOrders,
   clearOrderModalData
 } from './orderSlice';
+
+export { feedReducer, fetchFeed } from './feedSlice';

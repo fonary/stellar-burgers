@@ -7,6 +7,7 @@ import {
 } from 'react-redux';
 import {
   constructorReducer,
+  feedReducer,
   ingredientsReducer,
   orderReducer,
   userReducer
@@ -16,7 +17,8 @@ const rootReducer = {
   user: userReducer,
   ingredients: ingredientsReducer,
   burgerConstructor: constructorReducer,
-  order: orderReducer
+  order: orderReducer,
+  feed: feedReducer
 };
 
 const store = configureStore({
