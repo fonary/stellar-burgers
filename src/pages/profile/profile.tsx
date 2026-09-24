@@ -19,11 +19,11 @@ export const Profile: FC = () => {
 
   useEffect(() => {
     if (user) {
-      setFormValue((prevState) => ({
-        ...prevState,
+      setFormValue({
         name: user.name,
-        email: user.email
-      }));
+        email: user.email,
+        password: ''
+      });
     }
   }, [user]);
 
