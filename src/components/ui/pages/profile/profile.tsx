@@ -63,7 +63,7 @@ export const ProfileUI: FC<ProfileUIProps> = ({
             errorText={''}
             size={'default'}
             icon={'EditIcon'}
-            autoComplete='current-password'
+            autoComplete='new-password'
           />
         </div>
         {isFormChanged && (
