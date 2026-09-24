@@ -16,12 +16,16 @@ import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
 import { ProtectedRoute } from '../protected-route';
 import { useDispatch, useSelector } from '../../services/store';
 import { useEffect } from 'react';
-import { checkAuth } from '@slices';
+import { checkAuth, fetchIngredients } from '@slices';
 import { selectIsAuthChecked } from '@selectors';
 
 const App = () => {
   const dispatch = useDispatch();
   const isAuthChecked = useSelector(selectIsAuthChecked);
+
+  useEffect(() => {
+    dispatch(fetchIngredients());
+  }, [dispatch]);
 
   useEffect(() => {
     if (!isAuthChecked) {
