@@ -22,7 +22,9 @@ export {
   selectUserOrders,
   selectOrderRequest,
   selectOrderModalData,
-  selectOrderError
+  selectOrderError,
+  selectRequestedOrder,
+  selectRequestedOrderNumber
 } from './orderSelectors';
 
 export {

@@ -8,6 +8,12 @@ export const selectOrderRequest = (state: RootState) =>
 export const selectOrderModalData = (state: RootState) =>
   state.order.orderModalData;
 
+export const selectRequestedOrder = (state: RootState) =>
+  state.order.requestedOrder;
+
+export const selectRequestedOrderNumber = (state: RootState) =>
+  state.order.requestedOrderNumber;
+
 export const selectOrderError = (state: RootState) => state.order.error;
 
 export const selectIsLoading = (state: RootState) => state.order.isLoading;

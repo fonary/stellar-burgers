@@ -24,7 +24,9 @@ export {
   orderReducer,
   createOrder,
   fetchUserOrders,
-  clearOrderModalData
+  clearOrderModalData,
+  clearRequestedOrder,
+  fetchOrderByNumber
 } from './orderSlice';
 
 export { feedReducer, fetchFeed } from './feedSlice';
