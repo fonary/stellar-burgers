@@ -5,15 +5,28 @@ import {
   useDispatch as dispatchHook,
   useSelector as selectorHook
 } from 'react-redux';
+import {
+  constructorReducer,
+  feedReducer,
+  ingredientsReducer,
+  orderReducer,
+  userReducer
+} from '@slices';
 
-const rootReducer = () => {}; // Заменить на импорт настоящего редьюсера
+const rootReducer = {
+  user: userReducer,
+  ingredients: ingredientsReducer,
+  burgerConstructor: constructorReducer,
+  order: orderReducer,
+  feed: feedReducer
+};
 
 const store = configureStore({
   reducer: rootReducer,
   devTools: process.env.NODE_ENV !== 'production'
 });
 
-export type RootState = ReturnType<typeof rootReducer>;
+export type RootState = ReturnType<typeof store.getState>;
 
 export type AppDispatch = typeof store.dispatch;
 
