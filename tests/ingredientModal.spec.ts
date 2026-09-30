@@ -24,6 +24,11 @@ test.describe('Модальное окно ингредиента', () => {
     await expect(
       modal.locator('h3.text_type_main-medium', { hasText: bunName })
     ).toBeVisible();
+
+    await expect(modal.getByText('Калории, ккал')).toBeVisible();
+    await expect(modal.getByText('Белки, г')).toBeVisible();
+    await expect(modal.getByText('Жиры, г')).toBeVisible();
+    await expect(modal.getByText('Углеводы, г')).toBeVisible();
   });
 
   test('закрывается по клику на крестик', async ({ page }) => {
