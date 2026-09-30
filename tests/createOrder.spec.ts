@@ -84,7 +84,11 @@ test.describe('Создание заказа', () => {
     await modal.getByRole('button').click();
     await expect(page.locator('#modals > div')).toHaveCount(0);
 
-    await expect(page.getByText('Выберите булки').first()).toBeVisible();
-    await expect(page.getByText('Выберите начинку')).toBeVisible();
+    const constructorSection = page.locator('section').filter({
+      has: page.getByRole('button', { name: 'Оформить заказ' })
+    });
+
+    await expect(constructorSection.getByText('Выберите булки').first()).toBeVisible();
+    await expect(constructorSection.getByText('Выберите начинку')).toBeVisible();
   });
 });
