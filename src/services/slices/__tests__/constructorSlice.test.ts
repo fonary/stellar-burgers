@@ -62,7 +62,6 @@ const MOCK_SAUCE: TConstructorIngredient = {
 };
 
 describe('constructorSlice reducer', () => {
-
   test('возвращает начальное состояние при неизвестном экшене и undefined в качестве state', () => {
     const state = constructorReducer(undefined, { type: 'UNKNOWN' });
     expect(state).toEqual(initialState);
@@ -175,10 +174,7 @@ describe('constructorSlice reducer', () => {
       ingredients: [MOCK_MAIN, MOCK_SAUCE]
     };
 
-    const state = constructorReducer(
-      stateWithIngredients,
-      setIngredients([])
-    );
+    const state = constructorReducer(stateWithIngredients, setIngredients([]));
 
     expect(state.ingredients).toEqual([]);
   });

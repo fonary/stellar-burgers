@@ -1,55 +1,14 @@
 import { test, expect, Page } from '@playwright/test';
 
-const MOCK_USER = {
-  success: true,
-  user: {
-    email: 'test@example.com',
-    name: 'Test User',
-  },
-};
-
-const MOCK_ORDER = {
-  success: true,
-  name: 'Space Burger',
-  order: {
-    _id: 'mock-order-id',
-    status: 'done',
-    name: 'Space Burger',
-    number: 12345,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-    price: 2510,
-    owner: {
-      name: 'Test User',
-      email: 'test@example.com',
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    },
-  },
-};
-
-const MOCK_ORDERS_LIST = {
-  success: true,
-  orders: [
-    {
-      _id: 'mock-order-id',
-      status: 'done',
-      name: 'Space Burger',
-      number: 12345,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-      ingredients: [],
-    },
-  ],
-  total: 1,
-  totalToday: 1,
-};
+const ORDER_NUMBER = 12345;
 
 const MOCK_ACCESS_TOKEN = {
   name: 'accessToken',
   value: 'Bearer mock-access-token',
-  url: 'http://localhost:4000',
+  url: 'http://localhost:4000'
 };
+
+const MOCK_REFRESH_TOKEN = 'mock-refresh-token';
 
 // Собрать бургер (булка + начинка)
 const buildBurger = async (page: Page) => {
@@ -67,9 +26,7 @@ const placeOrder = async (page: Page) => {
 
   const modal = page.locator('#modals > div').first();
   await expect(modal).toBeVisible();
-  await expect(
-    modal.getByText(String(MOCK_ORDER.order.number))
-  ).toBeVisible();
+  await expect(modal.getByText(String(ORDER_NUMBER))).toBeVisible();
 
   return modal;
 };
@@ -77,44 +34,24 @@ const placeOrder = async (page: Page) => {
 test.describe('Создание заказа', () => {
   test.beforeEach(async ({ page, context }) => {
     await context.addCookies([MOCK_ACCESS_TOKEN]);
+    await page.addInitScript((token) => {
+      localStorage.setItem('refreshToken', token);
+    }, MOCK_REFRESH_TOKEN);
 
-    await page.route('**/api/auth/user', (route) =>
-      route.fulfill({
-        status: 200,
-        contentType: 'application/json',
-        body: JSON.stringify(MOCK_USER),
-      })
-    );
+    await page.routeFromHAR('./tests/hars/api-auth-user.har', {
+      url: '**/api/auth/user'
+    });
 
-    await page.route('**/api/auth/token', (route) =>
-      route.fulfill({
-        status: 200,
-        contentType: 'application/json',
-        body: JSON.stringify({
-          success: true,
-          accessToken: 'Bearer mock-access-token',
-          refreshToken: 'mock-refresh-token',
-        }),
-      })
-    );
+    await page.routeFromHAR('./tests/hars/api-auth-token.har', {
+      url: '**/api/auth/token'
+    });
 
-    await page.route('**/api/orders', (route) => {
-      if (route.request().method() === 'POST') {
-        return route.fulfill({
-          status: 200,
-          contentType: 'application/json',
-          body: JSON.stringify(MOCK_ORDER),
-        });
-      }
-      return route.fulfill({
-        status: 200,
-        contentType: 'application/json',
-        body: JSON.stringify(MOCK_ORDERS_LIST),
-      });
+    await page.routeFromHAR('./tests/hars/api-orders.har', {
+      url: '**/api/orders'
     });
 
     await page.routeFromHAR('./tests/hars/api-ingredients.har', {
-      url: '**/api/ingredients',
+      url: '**/api/ingredients'
     });
 
     await page.goto('/');
@@ -122,16 +59,16 @@ test.describe('Создание заказа', () => {
   });
 
   test('открытие модалки: открывается и показывает номер заказа', async ({
-    page,
+    page
   }) => {
     const modal = await placeOrder(page);
 
-    await expect(
-      modal.getByText(String(MOCK_ORDER.order.number))
-    ).toBeVisible();
+    await expect(modal.getByText(String(ORDER_NUMBER))).toBeVisible();
   });
 
-  test('закрытие модалки: закрывается по клику на крестик', async ({ page }) => {
+  test('закрытие модалки: закрывается по клику на крестик', async ({
+    page
+  }) => {
     const modal = await placeOrder(page);
 
     await modal.getByRole('button').click();
@@ -140,7 +77,7 @@ test.describe('Создание заказа', () => {
   });
 
   test('очистка конструктора: после закрытия модалки конструктор пуст', async ({
-    page,
+    page
   }) => {
     const modal = await placeOrder(page);
 
