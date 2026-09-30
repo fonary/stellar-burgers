@@ -1,12 +1,6 @@
-import { ingredientsReducer, fetchIngredients } from '../ingredientsSlice';
+import { ingredientsReducer, fetchIngredients, initialState} from '../ingredientsSlice';
 import type { IngredientsState } from '../ingredientsSlice';
 import type { TIngredient } from '@utils-types';
-
-const initialState: IngredientsState = {
-  items: [],
-  isLoading: false,
-  error: null
-};
 
 const MOCK_INGREDIENTS: TIngredient[] = [
   {

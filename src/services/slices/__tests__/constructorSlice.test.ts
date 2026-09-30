@@ -1,4 +1,5 @@
 import {
+  initialState,
   constructorReducer,
   addIngredient,
   removeIngredients,
@@ -7,14 +8,6 @@ import {
 } from '../constructorSlice';
 import type { TConstructorState } from '../constructorSlice';
 import type { TConstructorIngredient } from '@utils-types';
-
-// initialState дублирован, потому что слайс его не экспортирует
-const initialState: TConstructorState = {
-  bunTop: null,
-  bunBottom: null,
-  isLoading: false,
-  ingredients: []
-};
 
 const MOCK_BUN: TConstructorIngredient = {
   _id: '643d69a5c3f7b9001cfa093c',
