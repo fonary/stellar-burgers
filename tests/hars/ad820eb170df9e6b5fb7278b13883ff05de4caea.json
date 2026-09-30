@@ -1,0 +1,1 @@
+{"success":true,"orders":[{"_id":"mock-order-id","status":"done","name":"Space Burger","number":12345,"createdAt":"2026-09-29T23:59:10.336Z","updatedAt":"2026-09-29T23:59:10.336Z","ingredients":[]}],"total":1,"totalToday":1}

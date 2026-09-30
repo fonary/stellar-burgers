@@ -1,0 +1,1 @@
+{"success":true,"name":"Space Burger","order":{"_id":"mock-order-id","status":"done","name":"Space Burger","number":12345,"createdAt":"2026-09-29T23:59:10.335Z","updatedAt":"2026-09-29T23:59:10.336Z","price":2510,"owner":{"name":"Test User","email":"test@example.com","createdAt":"2026-09-29T23:59:10.336Z","updatedAt":"2026-09-29T23:59:10.336Z"}}}
