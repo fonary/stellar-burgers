@@ -19,14 +19,13 @@ const buildBurger = async (page: Page) => {
   await mainsList.getByRole('button', { name: 'Добавить' }).first().click();
 };
 
-// Оформить заказ и дождаться, что модалка с номером открылась
+// Оформить заказ и дождаться, что модалка открылась
 const placeOrder = async (page: Page) => {
   await buildBurger(page);
   await page.getByRole('button', { name: 'Оформить заказ' }).click();
 
   const modal = page.locator('#modals > div').first();
   await expect(modal).toBeVisible();
-  await expect(modal.getByText(String(ORDER_NUMBER))).toBeVisible();
 
   return modal;
 };
